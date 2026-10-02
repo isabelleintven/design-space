@@ -3,6 +3,14 @@ import { lazy } from 'react'
 // Alle tools werken zelfstandig (Quick Tools) én binnen een project.
 export const TOOLS = [
   {
+    id: 'summary',
+    name: 'Briefing samenvatten',
+    category: 'Briefing',
+    desc: 'Haal de kern, deadlines, specificaties en open vragen uit een lange briefing.',
+    accepts: 'Tekst, PDF',
+    component: lazy(() => import('./tools/Briefing.jsx')),
+  },
+  {
     id: 'compare',
     name: 'Bestanden vergelijken',
     category: 'Vergelijken',
@@ -51,18 +59,12 @@ export const TOOLS = [
     component: lazy(() => import('./tools/ExportPackage.jsx')),
   },
   {
-    id: 'summary',
-    name: 'Briefing samenvatten',
-    category: 'Briefing',
-    desc: 'Haal de kern, deadlines en eisen uit een lange briefing.',
-    soon: true,
-  },
-  {
     id: 'pdf-table',
     name: 'PDF naar tabel',
     category: 'Data',
-    desc: 'Zet prijslijsten en tabellen uit een PDF om naar Excel/CSV.',
-    soon: true,
+    desc: 'Zet prijslijsten en tabellen uit een PDF om naar Excel of CSV.',
+    accepts: 'PDF',
+    component: lazy(() => import('./tools/PdfTable.jsx')),
   },
 ]
 

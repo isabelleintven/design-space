@@ -1,7 +1,10 @@
 // Lokale opslag in de browser (IndexedDB). Niets verlaat de computer.
 import { openDB } from 'idb'
 
-const dbPromise = openDB('design-space', 1, {
+// De developer-preview (/dev/) krijgt een eigen database, zodat testen nooit echte projecten raakt.
+export const IS_DEV_BUILD = typeof location !== 'undefined' && /\/dev(\/|$)/.test(location.pathname)
+
+const dbPromise = openDB(IS_DEV_BUILD ? 'design-space-dev' : 'design-space', 1, {
   upgrade(db) {
     db.createObjectStore('projects', { keyPath: 'id' })
     db.createObjectStore('presets', { keyPath: 'id' })

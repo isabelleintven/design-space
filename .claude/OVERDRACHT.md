@@ -1,24 +1,24 @@
 # Overdracht — Design Space
 
-_Bijgewerkt: 1 oktober 2026, branch `main`_
+_Bijgewerkt: 2 oktober 2026, branch `developer`_
 
 ## Waar we gebleven waren
-- Design Space gebouwd als gratis web-app (React + Vite), gehost op GitHub Pages: https://isabelleintven.github.io/design-space/
-- Alles draait lokaal in de browser (pdf.js, pdf-lib, JSZip); projecten worden opgeslagen in IndexedDB en zijn te delen als `.dspace`-bestand.
-- Werkende tools: Bestanden vergelijken, PDF-check, Feedback naar checklist, Spellingcontrole (lokaal + optioneel LanguageTool), Bestanden hernoemen, Exportpakket.
-- Project workspace: overzicht (deadline, briefing, KPI's), bestanden met versies, correctierondes, exports, instellingen, plus klantpresets (naamgeving + PDF-eisen).
-- Glass-stijl met bosachtergrond (Unsplash), Italiana-serif koppen en dunne frame-lijnen zoals in het voorbeeld.
-- Getest in Chrome met een end-to-end script (alle stappen groen, geen console-fouten).
+- Werkwijze met twee branches: werken op `developer`, uitbrengen via `main`. `npm run deploy` publiceert vanaf `developer` naar `/dev/` (eigen database, DEV-label) en vanaf `main` naar de hoofdsite.
+- Nieuwe achtergrond: zonnige wei (iStock-foto) met een "space cow": SVG-ruimtehelm, antenne en twinkelende sterren. Foto gespiegeld en aangevuld, zodat het kalf rechts naast de tekst staat; aparte uitsneden voor desktop, tablet en telefoon.
+- Nieuw logo: planeet met ring, maantje en ster (lijnstijl).
+- Nieuwe tools: *Briefing samenvatten* (lokaal, zonder AI) en *PDF naar tabel* (kolommen via witruimte, export naar .xlsx/.csv/klembord, eigen xlsx-schrijver).
+- Build duurt nu 0,2 s (de oude bosfoto in de CSS was de vertrager).
+- Alle 13 end-to-end-stappen in Chrome groen, geen console-fouten.
 
 ## Wat nog open staat
-- "Briefing samenvatten" en "PDF naar tabel" staan als *binnenkort* op het home screen.
-- Spellingcontrole zonder LanguageTool vangt geen echte spelfouten (alleen typografie/dubbele woorden; de browser onderstreept in het tekstvak).
-- Projecten staan per browser; er is geen automatische synchronisatie tussen collega's (alleen export/import).
-- Publiceren gaat via `npm run deploy` (gh-pages-branch), omdat het gh-token geen `workflow`-scope heeft. Wil je automatisch publiceren bij elke push: `gh auth refresh -h github.com -s workflow` en voeg een Pages-workflow toe.
-- Lokale build is traag (~1,5 min) doordat de map in Documenten staat.
+- Wachten op keuze van de gebruiker uit de lijst met extra kansen (zie gesprek van 2 okt).
+- `developer` is nog niet naar `main` gemerged; de hoofdsite toont nog de bos-versie.
+- Spellingcontrole zonder LanguageTool vangt geen echte spelfouten.
+- Projecten synchroniseren niet tussen collega's (alleen export/import via `.dspace`).
+- Automatisch publiceren via GitHub Actions kan pas na `gh auth refresh -h github.com -s workflow`.
 
 ## Zo pak je het weer op
-1. `cd "/Users/isabelleintven/Documents/AI/Team Vormgeving/Design Space"` en `git pull`
-2. `npm install` en `npm run dev` → open http://localhost:5173
-3. Wijzigingen online zetten: `npm run deploy` (daarna 1–2 minuten wachten)
-4. Volgende stap: een van de *binnenkort*-tools bouwen of feedback van het team verwerken
+1. `cd "/Users/isabelleintven/Documents/AI/Team Vormgeving/Design Space"`, `git checkout developer`, `git pull`
+2. `npm install` en `npm run dev` → http://localhost:5173
+3. Preview online: `npm run deploy` op `developer` → https://isabelleintven.github.io/design-space/dev/
+4. Uitbrengen: `git checkout main && git merge developer && git push && npm run deploy`

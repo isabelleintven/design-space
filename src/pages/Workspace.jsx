@@ -154,7 +154,10 @@ function Overview({ project, update, preset, presets, base }) {
         <div className="glass panel">
           <div className="row spread" style={{ marginBottom: 12 }}>
             <h2 style={{ margin: 0 }}>Briefing</h2>
-            {briefing !== project.briefing && <button className="btn small primary" onClick={() => update({ briefing })}>Opslaan</button>}
+            <div className="row">
+              {briefing !== project.briefing && <button className="btn small primary" onClick={() => update({ briefing })}>Opslaan</button>}
+              {project.briefing && <a className="btn small" href={`${base}/tool/summary`}>Vat samen</a>}
+            </div>
           </div>
           <textarea
             className="input"

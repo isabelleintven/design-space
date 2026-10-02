@@ -14,14 +14,14 @@ Een modulaire, lokale toolbox voor grafisch vormgevers. Gratis, zonder installat
 
 | Tool | Wat het doet |
 | --- | --- |
+| Briefing samenvatten | Kernzinnen, deadline & planning, op te leveren items, specificaties, budget, contact en open vragen uit een briefing. In een project: deadline overnemen en takenlijst maken |
 | Bestanden vergelijken | V1 en V2 (PDF/PNG/JPG) visueel vergelijken (verschillen, schuifregelaar of naast elkaar) plus tekstverschillen per pagina |
 | PDF-check | Eindformaat, TrimBox, afloop, ingesloten fonts, effectieve beeldresolutie (ppi), RGB/CMYK, steunkleuren en transparantie |
 | Feedback naar checklist | Mail of appje van de klant omzetten naar een afvinkbare correctielijst (herkent paginanummers en vragen) |
 | Spellingcontrole | Lokale typografie-/tekstcontrole, optioneel uitgebreid via LanguageTool (online) |
 | Bestanden hernoemen | Batch-hernoemen volgens een patroon, als ZIP of direct in een map (Chrome/Edge) |
 | Exportpakket | Eindbestanden bundelen in een nette mappenstructuur met LEESMIJ en correctierondes |
-
-Binnenkort: *Briefing samenvatten*, *PDF naar tabel*.
+| PDF naar tabel | Prijslijsten en tabellen uit een PDF naar Excel (.xlsx), CSV of klembord, met bedragen als echte getallen |
 
 ## Klantpresets
 
@@ -39,6 +39,9 @@ npm run dev      # lokaal op http://localhost:5173
 npm run build    # productiebuild in dist/
 ```
 
-Publiceren op GitHub Pages: `npm run deploy` (bouwt de app en zet `dist/` op de `gh-pages`-branch).
+### Branches
 
-Gebouwd met React, Vite, pdf.js, pdf-lib en JSZip. Achtergrondfoto: Unsplash (gratis licentie).
+- `developer`: hier wordt aan gewerkt. `npm run deploy` publiceert een preview op https://isabelleintven.github.io/design-space/dev/ (met eigen opslag, herkenbaar aan het rode DEV-label).
+- `main`: de versie voor het team. Merge `developer` naar `main` en draai daar `npm run deploy` om de hoofdsite bij te werken.
+
+Gebouwd met React, Vite, pdf.js, pdf-lib en JSZip. Achtergrondfoto: iStock (licentie Indicia), met een getekende ruimtehelm als SVG-laag.
