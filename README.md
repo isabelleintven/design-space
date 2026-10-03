@@ -44,4 +44,4 @@ npm run build    # productiebuild in dist/
 - `developer`: hier wordt aan gewerkt. `npm run deploy` publiceert een preview op https://isabelleintven.github.io/design-space/dev/ (met eigen opslag, herkenbaar aan het rode DEV-label).
 - `main`: de versie voor het team. Merge `developer` naar `main` en draai daar `npm run deploy` om de hoofdsite bij te werken.
 
-Gebouwd met React, Vite, pdf.js, pdf-lib en JSZip. Achtergrondfoto: iStock (licentie Indicia), met een getekende ruimtehelm als SVG-laag.
+Gebouwd met React, Vite, pdf.js, pdf-lib en JSZip. Achtergrond: "space cow", gemaakt met Magnific.
