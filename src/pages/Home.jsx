@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { TOOLS } from '../tools'
 import { listProjects } from '../lib/db'
 import { daysUntil } from '../lib/files'
+import Planning from '../components/Planning'
 
 export function ToolCard({ tool, href }) {
   if (tool.soon)
@@ -85,6 +86,8 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <Planning projects={projects} />
 
       {projects.length > 0 && (
         <section style={{ marginTop: 56 }}>

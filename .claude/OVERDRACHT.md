@@ -1,24 +1,24 @@
 # Overdracht — Design Space
 
-_Bijgewerkt: 2 oktober 2026, branch `developer`_
+_Bijgewerkt: 3 oktober 2026, branch `developer` (gemerged naar `main`)_
 
 ## Waar we gebleven waren
-- Werkwijze met twee branches: werken op `developer`, uitbrengen via `main`. `npm run deploy` publiceert vanaf `developer` naar `/dev/` (eigen database, DEV-label) en vanaf `main` naar de hoofdsite.
-- Nieuwe achtergrond: zonnige wei (iStock-foto) met een "space cow": SVG-ruimtehelm, antenne en twinkelende sterren. Foto gespiegeld en aangevuld, zodat het kalf rechts naast de tekst staat; aparte uitsneden voor desktop, tablet en telefoon.
-- Nieuw logo: planeet met ring, maantje en ster (lijnstijl).
-- Nieuwe tools: *Briefing samenvatten* (lokaal, zonder AI) en *PDF naar tabel* (kolommen via witruimte, export naar .xlsx/.csv/klembord, eigen xlsx-schrijver).
-- Build duurt nu 0,2 s (de oude bosfoto in de CSS was de vertrager).
-- Alle 13 end-to-end-stappen in Chrome groen, geen console-fouten.
+- Achtergrond is nu de "space cow" (Magnific-afbeelding), met de titel weer gecentreerd; uitsnede afgestemd op desktop en telefoon.
+- Glas-effect echt werkend gemaakt: de minifier gooide `backdrop-filter` weg als `-webkit-` erachter stond. Zet in `styles.css` altijd eerst `-webkit-backdrop-filter`, daarna `backdrop-filter`.
+- Nieuwe tools: Feedback op PDF (pins + PDF met notities), Kleuren uit PDF of logo (palet, exacte CMYK/RGB, contrast, naar klantpreset) en Beeldformaten (10 social/web-formaten met focuspunt).
+- Spellingcontrole heeft nu een leesbaarheidsscore (Flesch-Douma/B1).
+- Homepage: Planning-tijdlijn met alle deadlines (8 weken). Project: tab Tijdlijn + knop "Verstuurd?" per versie.
+- Klantpresets kunnen huisstijlkleuren bewaren.
+- Alle 18 end-to-end-stappen in Chrome groen, geen console-fouten.
 
 ## Wat nog open staat
-- Wachten op keuze van de gebruiker uit de lijst met extra kansen (zie gesprek van 2 okt).
-- `developer` is nog niet naar `main` gemerged; de hoofdsite toont nog de bos-versie.
 - Spellingcontrole zonder LanguageTool vangt geen echte spelfouten.
 - Projecten synchroniseren niet tussen collega's (alleen export/import via `.dspace`).
+- Leesbaarheid: een lange-zinmelding verbergt meldingen binnen die zin (meldingen mogen elkaar niet overlappen).
 - Automatisch publiceren via GitHub Actions kan pas na `gh auth refresh -h github.com -s workflow`.
 
 ## Zo pak je het weer op
 1. `cd "/Users/isabelleintven/Documents/AI/Team Vormgeving/Design Space"`, `git checkout developer`, `git pull`
 2. `npm install` en `npm run dev` → http://localhost:5173
-3. Preview online: `npm run deploy` op `developer` → https://isabelleintven.github.io/design-space/dev/
-4. Uitbrengen: `git checkout main && git merge developer && git push && npm run deploy`
+3. Preview: `npm run deploy` op `developer` → https://isabelleintven.github.io/design-space/dev/
+4. Live zetten: `git checkout main && git merge developer && git push && npm run deploy && git checkout developer`

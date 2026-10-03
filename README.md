@@ -18,10 +18,17 @@ Een modulaire, lokale toolbox voor grafisch vormgevers. Gratis, zonder installat
 | Bestanden vergelijken | V1 en V2 (PDF/PNG/JPG) visueel vergelijken (verschillen, schuifregelaar of naast elkaar) plus tekstverschillen per pagina |
 | PDF-check | Eindformaat, TrimBox, afloop, ingesloten fonts, effectieve beeldresolutie (ppi), RGB/CMYK, steunkleuren en transparantie |
 | Feedback naar checklist | Mail of appje van de klant omzetten naar een afvinkbare correctielijst (herkent paginanummers en vragen) |
-| Spellingcontrole | Lokale typografie-/tekstcontrole, optioneel uitgebreid via LanguageTool (online) |
+| Feedback op PDF | Klik op een plek in de PDF en typ een opmerking; export als checklist of als PDF met genummerde markeringen, echte PDF-notities en een opmerkingenpagina |
+| Spellingcontrole | Lokale typografie-/tekstcontrole en leesbaarheid (Flesch-Douma, B1: lange zinnen, moeilijke woorden, lijdende vorm), optioneel uitgebreid via LanguageTool (online) |
 | Bestanden hernoemen | Batch-hernoemen volgens een patroon, als ZIP of direct in een map (Chrome/Edge) |
 | Exportpakket | Eindbestanden bundelen in een nette mappenstructuur met LEESMIJ en correctierondes |
+| Kleuren uit PDF of logo | Palet uit beeld of exacte CMYK/RGB en steunkleuren uit een PDF, contrastcheck (WCAG) en opslaan in de klantpreset |
+| Beeldformaten | Eén beeld naar alle social- en webformaten (Instagram, Story, LinkedIn, Facebook, YouTube, web, nieuwsbrief) met focuspunt |
 | PDF naar tabel | Prijslijsten en tabellen uit een PDF naar Excel (.xlsx), CSV of klembord, met bedragen als echte getallen |
+
+## Projecten: planning & tijdlijn
+
+De homepage toont alle deadlines van de komende 8 weken op één tijdlijn. Per project is er een tijdlijn met versies, correctierondes, exports en mijlpalen. Markeer bij *Bestanden & versies* welke versie naar de klant is verstuurd.
 
 ## Klantpresets
 

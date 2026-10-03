@@ -122,6 +122,7 @@ export function emptyPreset(data = {}) {
     lowercase: false,
     pdf: { width: 210, height: 297, bleed: 3, minDpi: 300, requireEmbeddedFonts: true, requireCmyk: true },
     notes: '',
+    colors: [], // { hex, rgb, cmyk, name }
     ...data,
   }
 }

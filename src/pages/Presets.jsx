@@ -69,6 +69,21 @@ export function PresetForm({ preset, onSave, onCancel }) {
           <input type="checkbox" checked={p.pdf.requireCmyk} onChange={setPdf('requireCmyk')} /> Waarschuw bij RGB
         </label>
       </div>
+      {p.colors?.length > 0 && (
+        <div>
+          <div className="eyebrow" style={{ marginBottom: 8 }}>Huisstijlkleuren</div>
+          <div className="row" style={{ gap: 8 }}>
+            {p.colors.map((c) => (
+              <span key={c.hex} className="preset-color">
+                <span style={{ background: c.hex }} />
+                <span className="mono">{c.hex}<br />C{c.cmyk[0]} M{c.cmyk[1]} Y{c.cmyk[2]} K{c.cmyk[3]}</span>
+                <button className="btn small ghost" onClick={() => setP({ ...p, colors: p.colors.filter((x) => x.hex !== c.hex) })}>×</button>
+              </span>
+            ))}
+          </div>
+          <p className="dim">Kleuren toevoegen via de tool Kleuren uit PDF of logo.</p>
+        </div>
+      )}
       <Field label="Notities (huisstijl, contactpersoon, drukker…)">
         <textarea className="input" rows={3} value={p.notes} onChange={set('notes')} />
       </Field>
@@ -114,6 +129,11 @@ export default function Presets() {
               <div className="desc">
                 {p.pdf.width} × {p.pdf.height} mm · {p.pdf.bleed} mm afloop · {p.pdf.minDpi} ppi
               </div>
+              {p.colors?.length > 0 && (
+                <div className="row" style={{ gap: 4, marginTop: 12 }}>
+                  {p.colors.slice(0, 10).map((c) => <span key={c.hex} title={c.hex} style={{ width: 18, height: 18, borderRadius: 4, background: c.hex, border: '1px solid var(--line)' }} />)}
+                </div>
+              )}
               <div className="foot">
                 <span className="mono">{p.namingPattern}</span>
               </div>

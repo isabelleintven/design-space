@@ -19,6 +19,7 @@ const SECTIONS = [
   { id: '', label: 'Overzicht' },
   { id: 'files', label: 'Bestanden & versies' },
   { id: 'checklists', label: 'Correcties' },
+  { id: 'timeline', label: 'Tijdlijn' },
   { id: 'exports', label: 'Exports' },
   { id: 'settings', label: 'Instellingen' },
 ]
@@ -98,6 +99,8 @@ export default function Workspace({ projectId, section = '', toolId, query }) {
             <FilesSection project={project} update={update} base={base} />
           ) : section === 'checklists' ? (
             <ChecklistsSection project={project} update={update} base={base} />
+          ) : section === 'timeline' ? (
+            <TimelineSection project={project} base={base} />
           ) : section === 'exports' ? (
             <ExportsSection project={project} base={base} />
           ) : section === 'settings' ? (
@@ -266,6 +269,16 @@ function FilesSection({ project, update, base }) {
     }))
   }
 
+  const markSent = (fileEntry, version) =>
+    update((p) => ({
+      ...p,
+      files: p.files.map((f) =>
+        f.id === fileEntry.id
+          ? { ...f, versions: f.versions.map((v) => (v.id === version.id ? { ...v, sentAt: v.sentAt ? null : new Date().toISOString() } : v)) }
+          : f,
+      ),
+    }))
+
   const saveNote = (fileEntry, version, note) =>
     update((p) => ({
       ...p,
@@ -325,6 +338,13 @@ function FilesSection({ project, update, base }) {
                               />
                             </td>
                             <td style={{ whiteSpace: 'nowrap', textAlign: 'right' }}>
+                              <button
+                                className={`btn small ${v.sentAt ? 'primary' : 'ghost'}`}
+                                title={v.sentAt ? `Verstuurd op ${formatDate(v.sentAt, true)}` : 'Markeer als verstuurd naar de klant'}
+                                onClick={() => markSent(f, v)}
+                              >
+                                {v.sentAt ? '✓ Verstuurd' : 'Verstuurd?'}
+                              </button>
                               <button className="btn small ghost" onClick={async () => download(await versionToFile(v), v.originalName)}>Download</button>
                               <button className="btn small ghost danger" onClick={() => removeVersion(f, v)}>×</button>
                             </td>
@@ -375,6 +395,48 @@ function ChecklistsSection({ project, update, base }) {
         ))
       )}
     </>
+  )
+}
+
+// ---------------- Tijdlijn ----------------
+function TimelineSection({ project, base }) {
+  const events = [{ at: project.createdAt, kind: 'start', title: 'Project gestart', detail: project.client }]
+  for (const f of project.files)
+    f.versions.forEach((v, i) => {
+      events.push({ at: v.addedAt, kind: 'version', title: `${f.name} v${i + 1} toegevoegd`, detail: v.note || v.originalName })
+      if (v.sentAt) events.push({ at: v.sentAt, kind: 'sent', title: `${f.name} v${i + 1} verstuurd naar klant`, detail: v.originalName })
+    })
+  for (const c of project.checklists) {
+    const done = c.items.filter((i) => i.done).length
+    events.push({ at: c.createdAt, kind: 'checklist', title: c.title, detail: `${c.items.length} punten · ${done} afgerond`, href: `${base}/checklists` })
+  }
+  for (const e of project.exports) events.push({ at: e.createdAt, kind: 'export', title: `Exportpakket ${e.name}`, detail: `${e.fileCount} bestanden` })
+  if (project.deadline) events.push({ at: `${project.deadline}T23:59:00`, kind: 'deadline', title: 'Deadline', detail: '' })
+  events.sort((a, b) => b.at.localeCompare(a.at))
+  const LABEL = { start: 'Start', version: 'Versie', sent: 'Naar klant', checklist: 'Correcties', export: 'Export', deadline: 'Deadline' }
+  let lastDay = ''
+  return (
+    <div className="glass panel">
+      <p className="dim" style={{ marginTop: 0 }}>Markeer bij Bestanden & versies welke versie naar de klant is gegaan; dat verschijnt hier als mijlpaal.</p>
+      <div className="timeline">
+        {events.map((e, i) => {
+          const day = formatDate(e.at)
+          const showDay = day !== lastDay
+          lastDay = day
+          return (
+            <div key={i} className={`tl-item ${e.kind} ${e.at > new Date().toISOString() ? 'future' : ''}`}>
+              <div className="tl-date">{showDay ? day : ''}</div>
+              <div className="tl-dot" />
+              <div>
+                <span className="tag">{LABEL[e.kind]}</span>
+                {e.href ? <a href={e.href}>{e.title}</a> : e.title}
+                {e.detail && <div className="dim">{e.detail}</div>}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
   )
 }
 

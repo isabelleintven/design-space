@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { localChecks, languageToolCheck, mergeIssues } from '../lib/textcheck'
+import { readability } from '../lib/readability'
 import { isPdf } from '../lib/files'
 import { Dropzone, ProjectFilePicker, useToast } from '../components/ui'
 
@@ -12,7 +13,7 @@ const readPref = () => {
   }
 }
 
-const TYPE_LABEL = { spelling: 'Spelling', typografie: 'Typografie', hoofdletter: 'Hoofdletter', stijl: 'Stijl', grammatica: 'Grammatica' }
+const TYPE_LABEL = { spelling: 'Spelling', typografie: 'Typografie', hoofdletter: 'Hoofdletter', stijl: 'Stijl', grammatica: 'Grammatica', leesbaarheid: 'Leesbaarheid' }
 
 export default function Spelling({ project }) {
   const [text, setText] = useState('')
@@ -22,6 +23,8 @@ export default function Spelling({ project }) {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [editing, setEditing] = useState(true)
+  const [read, setRead] = useState(null)
+  const [showRead, setShowRead] = useState(true)
   const toast = useToast()
 
   const loadFile = async ([file]) => {
@@ -51,7 +54,9 @@ export default function Spelling({ project }) {
         setError(`${e.message} Alleen de lokale controle is uitgevoerd.`)
       }
     }
-    setIssues(mergeIssues(lt, localChecks(text)))
+    const r = readability(text)
+    setRead(r)
+    setIssues(mergeIssues(lt, localChecks(text), r.issues))
     setEditing(false)
     setActive(null)
     setBusy(false)
@@ -70,11 +75,13 @@ export default function Spelling({ project }) {
 
   const ignore = (issue) => setIssues(issues.filter((i) => i !== issue))
 
+  const visible = issues ? issues.filter((i) => showRead || i.type !== 'leesbaarheid') : null
+
   // Tekst opdelen in stukken met markeringen
   const segments = []
-  if (issues) {
+  if (visible) {
     let pos = 0
-    issues.forEach((issue, idx) => {
+    visible.forEach((issue, idx) => {
       if (issue.offset < pos) return
       segments.push(text.slice(pos, issue.offset))
       segments.push(
@@ -154,12 +161,27 @@ export default function Spelling({ project }) {
 
       <div className="glass panel">
         {error && <div className="notice warn" style={{ marginBottom: 12 }}>{error}</div>}
-        {!issues ? (
+        {read && (
+          <div style={{ marginBottom: 16, paddingBottom: 16, borderBottom: '1px solid var(--line-soft)' }}>
+            <div className="row spread">
+              <div>
+                <div className="eyebrow">Leesbaarheid (Flesch-Douma)</div>
+                <span className="summary-big" style={{ color: `var(--${read.status})` }}>{read.score}</span>{' '}
+                <span className="muted">{read.label}</span>
+              </div>
+              <label className="check"><input type="checkbox" checked={showRead} onChange={(e) => setShowRead(e.target.checked)} /> Toon in tekst</label>
+            </div>
+            <div className="dim" style={{ marginTop: 6 }}>
+              {read.words} woorden · gem. {read.wordsPerSentence} woorden per zin · {read.longSentences} lange zinnen · {read.hardWords} moeilijke woorden · {read.passive}× lijdende vorm
+            </div>
+          </div>
+        )}
+        {!visible ? (
           <div className="empty">
             <span className="big">Meldingen</span>
             Plak een tekst en klik op Controleer.
           </div>
-        ) : !issues.length ? (
+        ) : !visible.length ? (
           <div className="empty">
             <span className="big" style={{ color: 'var(--ok)' }}>Geen meldingen</span>
             Er zijn geen fouten gevonden.
@@ -167,15 +189,15 @@ export default function Spelling({ project }) {
         ) : (
           <>
             <div className="row spread" style={{ marginBottom: 12 }}>
-              <h3 style={{ margin: 0 }}>{issues.length} melding{issues.length === 1 ? '' : 'en'}</h3>
+              <h3 style={{ margin: 0 }}>{visible.length} melding{visible.length === 1 ? '' : 'en'}</h3>
               <span className="dim">
-                {Object.entries(issues.reduce((a, i) => ({ ...a, [i.type]: (a[i.type] || 0) + 1 }), {}))
+                {Object.entries(visible.reduce((a, i) => ({ ...a, [i.type]: (a[i.type] || 0) + 1 }), {}))
                   .map(([k, v]) => `${v} ${(TYPE_LABEL[k] || k).toLowerCase()}`)
                   .join(' · ')}
               </span>
             </div>
             <div style={{ maxHeight: 620, overflow: 'auto' }}>
-              {issues.map((issue, i) => (
+              {visible.map((issue, i) => (
                 <div key={i} className={`issue ${active === issue ? 'active' : ''}`} onClick={() => { setActive(issue); setEditing(false) }}>
                   <div className="row spread">
                     <span className="eyebrow">{TYPE_LABEL[issue.type] || issue.type}</span>
