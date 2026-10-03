@@ -42,7 +42,7 @@ body {
   z-index: -2;
   background-color: #0b0a14;
   background-size: cover;
-  background-position: 50% 0%;
+  background-position: 50% 30%;
   background-repeat: no-repeat;
 }
 .bg-shade {
@@ -90,8 +90,8 @@ button { font: inherit; color: inherit; }
 .nav a { text-decoration: none; color: var(--text-soft); transition: color 0.2s; letter-spacing: 0.02em; }
 .nav a:hover, .nav a.active { color: var(--text); }
 .nav a.active { text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--line); }
-.logo { display: flex; flex-direction: column; align-items: center; gap: 2px; text-decoration: none; }
-.logo svg { width: 52px; height: 26px; }
+.logo { display: flex; flex-direction: column; align-items: center; gap: 0; text-decoration: none; }
+.logo svg { width: 58px; height: 36px; }
 .logo span { font-family: var(--serif); letter-spacing: 0.32em; font-size: 15px; padding-left: 0.32em; }
 .header-right { display: flex; justify-content: flex-end; gap: 10px; }
 
@@ -107,11 +107,11 @@ button { font: inherit; color: inherit; }
 .crumbs a:hover { color: var(--text); }
 
 /* ---------------- Hero ---------------- */
-.hero { text-align: center; padding: clamp(40px, 8vh, 96px) 0 clamp(260px, 40vh, 420px); }
-.hero h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(56px, 9vw, 128px); line-height: 1; margin: 0; letter-spacing: 0.01em; }
-.hero p { max-width: 560px; margin: 26px auto 0; color: var(--text-soft); font-size: 15px; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35); }
+.hero { text-align: center; padding: clamp(28px, 6vh, 72px) 0 clamp(36px, 6vh, 64px); }
+.hero h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(52px, 7.6vw, 112px); line-height: 1; margin: 0; letter-spacing: 0.01em; }
+.hero p { max-width: 560px; margin: 20px auto 0; color: var(--text-soft); font-size: 15px; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35); }
 .hero h1 { text-shadow: 0 2px 30px rgba(0, 0, 0, 0.25); }
-.hero-actions { display: flex; gap: 18px; justify-content: center; margin-top: 44px; flex-wrap: wrap; }
+.hero-actions { display: flex; gap: 18px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
 
 /* ---------------- Buttons ---------------- */
 .btn {
@@ -180,7 +180,8 @@ button { font: inherit; color: inherit; }
 .panel h3 { font-size: 16px; }
 
 /* Tool-kaarten zoals de prijs-kaarten in de referentie */
-.section-title { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 0 0 18px; }
+.section-title { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 0 0 18px; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6); }
+.section-title .dim { color: var(--text-soft); }
 .section-title h2 { font-family: var(--serif); font-weight: 400; font-size: 34px; margin: 0; }
 .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; }
 .card {
@@ -369,6 +370,7 @@ select.input option { background: #1b2a20; }
   .main { padding: 0 20px 60px; }
   .frame-lines, .sparkle { display: none; }
   .bg { background-size: auto 130%; background-position: 47% 0%; }
+  .section-title { flex-direction: column; align-items: flex-start; gap: 2px; }
   .grid-2, .grid-3, .side-by-side { grid-template-columns: 1fr; }
   .check-row { grid-template-columns: 20px 1fr; }
   .check-row .detail { grid-column: 2; }

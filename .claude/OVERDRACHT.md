@@ -3,6 +3,8 @@
 _Bijgewerkt: 3 oktober 2026, branch `developer` (gemerged naar `main`)_
 
 ## Waar we gebleven waren
+- Nieuw logo en favicon: koe in een retro-ufo als dunne lijntekening (`src/App.jsx`, `public/favicon.svg`; favicon past zich aan licht/donker tabblad aan).
+- Landingspagina compacter: Quick Tools staan direct onder de knoppen en zijn zonder scrollen zichtbaar; achtergrond iets hoger uitgelijnd.
 - Achtergrond is nu de "space cow" (Magnific-afbeelding), met de titel weer gecentreerd; uitsnede afgestemd op desktop en telefoon.
 - Glas-effect echt werkend gemaakt: de minifier gooide `backdrop-filter` weg als `-webkit-` erachter stond. Zet in `styles.css` altijd eerst `-webkit-backdrop-filter`, daarna `backdrop-filter`.
 - Nieuwe tools: Feedback op PDF (pins + PDF met notities), Kleuren uit PDF of logo (palet, exacte CMYK/RGB, contrast, naar klantpreset) en Beeldformaten (10 social/web-formaten met focuspunt).

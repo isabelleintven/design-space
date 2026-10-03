@@ -13,18 +13,28 @@ import { IS_DEV_BUILD } from './lib/db'
 function Logo() {
   return (
     <a href="#/" className="logo" aria-label="Design Space home">
-      <svg viewBox="0 0 52 26" fill="none" stroke="currentColor" strokeWidth="1.1">
-        {/* planeet met ring, maantje en ster */}
-        <circle cx="24" cy="13" r="7.5" />
-        <path d="M17.2 10.6 C 22 12.4, 26.5 12.6, 30.8 11.2" strokeOpacity="0.55" />
-        <mask id="ds-ring">
-          <rect width="52" height="26" fill="#fff" />
-          <circle cx="24" cy="13" r="8.8" fill="#000" />
-          <rect x="0" y="13" width="52" height="13" fill="#fff" transform="rotate(-14 24 13)" />
-        </mask>
-        <ellipse cx="24" cy="13" rx="17" ry="4.6" transform="rotate(-14 24 13)" mask="url(#ds-ring)" />
-        <circle cx="44.5" cy="6" r="1.6" fill="currentColor" stroke="none" />
-        <path d="M6 3.2 L6.7 5.3 L8.8 6 L6.7 6.7 L6 8.8 L5.3 6.7 L3.2 6 L5.3 5.3 Z" fill="currentColor" stroke="none" />
+      <svg viewBox="0 0 64 40" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+        {/* koe in een ufo */}
+        <defs>
+        <mask id="ufo-snout"><rect width="64" height="40" fill="#fff"/><ellipse cx="32" cy="27.6" rx="6.4" ry="4.2" fill="#000"/></mask>
+        </defs>
+        <line x1="32" y1="9.6" x2="32" y2="5.4"/>
+        <circle cx="32" cy="3.8" r="1.6"/>
+        <path d="M16.6 25.2 A15.6 15.6 0 0 1 47.4 25.2"/>
+        <g mask="url(#ufo-snout)">
+        <ellipse cx="32" cy="29" rx="29" ry="5.2"/>
+        <path d="M9 30.6 Q32 35.8 55 30.6" strokeOpacity="0.45"/>
+        </g>
+        <path d="M29.4 18.4 L28.2 15.6"/><circle cx="27.8" cy="14.6" r="1"/>
+        <path d="M34.6 18.4 L35.8 15.6"/><circle cx="36.2" cy="14.6" r="1"/>
+        <path d="M27.4 20.6 Q23.4 18.6 21.8 20.8 Q24 23.6 27.4 22.6"/>
+        <path d="M36.6 20.6 Q40.6 18.6 42.2 20.8 Q40 23.6 36.6 22.6"/>
+        <path d="M27.2 25.4 L27.2 21.6 Q27.2 18.4 32 18.4 Q36.8 18.4 36.8 21.6 L36.8 25.4"/>
+        <ellipse cx="30.1" cy="22.2" rx="0.9" ry="1.2"/>
+        <ellipse cx="33.9" cy="22.2" rx="0.9" ry="1.2"/>
+        <path d="M27.2 25.4 Q26.4 30.6 32 30.6 Q37.6 30.6 36.8 25.4 Q32 24 27.2 25.4 Z"/>
+        <circle cx="30.3" cy="27.6" r="0.6" fill="currentColor" stroke="none"/>
+        <circle cx="33.7" cy="27.6" r="0.6" fill="currentColor" stroke="none"/>
       </svg>
       <span>DESIGN SPACE</span>
     </a>
